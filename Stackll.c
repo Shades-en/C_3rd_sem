@@ -44,8 +44,6 @@ NODE display(NODE first){
     }
     NODE temp;
     temp=first;
-    int j;
-    int i=0;
     while(temp!=NULL){
         printf("%d \n",temp->info);
         temp=temp->link;
