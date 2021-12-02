@@ -6,8 +6,10 @@ int fib(int n){
 }
 
 void main(){
-    int n;
+    int n,i;
     printf("Enter the number of elements in the fibonacci series");
     scanf("%d",&n);
-    printf("%d \n",fib(n));
+    for(i=0;i<n;i++){
+        printf("%d \n",fib(i));
+    }
 }
