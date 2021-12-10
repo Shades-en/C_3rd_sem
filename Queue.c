@@ -6,7 +6,7 @@ int front=0;
 int rear=-1;
 int q[10];
 
-void qInsert(item){
+void qInsert(int item){
     if(rear==SIZE-1){
         printf("Queue is full \n");
     }

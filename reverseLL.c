@@ -53,7 +53,7 @@ NODE reverse(NODE head){
     return prev;
 }
 int main(){
-    int i,n, item,t;
+    int i,n,t;
     NODE head=NULL;
     printf("Enter the number of the elements to be reversed\n");
     scanf("%d",&n);
