@@ -1,104 +1,106 @@
-#include<stdio.h>
+#include <stdio.h>
 #include<stdlib.h>
-
-#define MALLOC(p,n,type)\
-p=(type*)malloc(n*sizeof(type));\
-if (p==NULL){\
- printf("Insufficient memory");\
- exit(0);\
+#define MALLOC(p,n,type) \
+p=(type*)malloc(n*sizeof(type)); \
+if(p==NULL){ \
+    printf("Insufficient memory \n"); \
+    exit(0); \
 }
 
 struct node{
- int info;
- struct node *link;
+    struct node *llink;
+    int info;
+    struct node *rlink;
 };
 
 typedef struct node *NODE;
 
-NODE insert(NODE first, int item, int pos){
+NODE insert(NODE first,int item,int pos){
     NODE temp,cur;
     MALLOC(temp,1,struct node)
+    temp->llink=NULL;
     temp->info=item;
-    temp->link=NULL;
-    if (pos==1 && first==NULL){
-        temp->link=temp;
+    temp->rlink=NULL;
+    if(pos==1){
+        temp->rlink=first;
         return temp;
     }
-    if(first==NULL){
-        printf("invalid position \n");
+    if(first==NULL && pos>1){
+        printf("Invalid position \n");
         return first;
     }
     NODE prev=NULL;
     cur=first;
     int count=1;
-    do{
+    while(cur!=NULL){
         prev=cur;
-        cur=cur->link;
+        cur=cur->rlink;
         count++;
         if(count==pos)
             break;
-    }while (cur!=first);
+    }
     if(pos>count){
-        printf("invalid position \n");
+        printf("Invalid position \n");
         return first;
     }
-    prev->link=temp;
-    temp->link=cur;
-    if (pos==1){
-        return temp;
-    }
+    prev->rlink=temp;
+    temp->llink=prev;
+    temp->rlink=cur;
+    if(cur!=NULL)
+        cur->llink=temp;
     return first;
 }
 
-NODE delete(NODE first, int pos){
+NODE delete(NODE first,int pos){
     NODE temp,cur;
     if(first==NULL){
         printf("Empty list \n");
         return first;
     }
-    if(first->link==first && pos==1){
-        printf("Deleted element is %d\n",first->info);
-        free(first);
-        return NULL;
+    if(pos==1){
+        temp=first;
+        first=first->rlink;
+        printf("Element deleted is %d\n",temp->info);
+        free(temp);
+        return first;
     }
     NODE prev=NULL;
     cur=first;
     int count=1;
-    do{
+    while(cur!=NULL){
         prev=cur;
-        cur=cur->link;
-        if(prev->link!=first)
+        cur=cur->rlink;
+        if(cur!=NULL)
             count++;
-        if(pos==count)
+        if(count==pos)
             break;
-    }while(cur!=first);
+    }
     if(pos>count){
-        printf("invalid position \n");
+        printf("Invalid position \n");
         return first;
     }
     temp=cur;
-    prev->link=cur->link;
-    printf("Deleted element is %d\n",temp->info);
+    prev->rlink=cur->rlink;
+    if(cur->rlink!=NULL)
+        cur->rlink->llink=prev;
+    printf("Element deleted is %d\n",temp->info);
     free(temp);
-    if(pos==1)
-        return prev->link;
     return first;
 }
 
-
-void display(NODE first){
-    NODE cur;
+NODE display(NODE first){
     if(first==NULL){
-    printf("List is empty\n");
-    return;
+        printf("Empty list\n");
+        return first;
     }
+    NODE cur;
     cur=first;
-    printf("The contents of the list:\n");
-    do{
-        printf("%d\t",cur->info);
-        cur=cur->link;
-    }while(cur!=first);
+    while(cur!=NULL){
+        printf("%d ",cur->info);
+        cur=cur->rlink;
+    }
     printf("\n");
+    return first;
 }
 
 void main(){
