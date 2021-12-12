@@ -5,7 +5,7 @@ p=(type*)malloc(n*sizeof(type)); \
 if(p==NULL){ \
     printf("Insufficient memory \n"); \
     exit(0); \
-}\
+}
 
 struct node{
     int info;
