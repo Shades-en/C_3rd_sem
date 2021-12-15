@@ -48,7 +48,7 @@ NODE insert(int item,int pos,NODE first){
     return first;        
 }
 
-NODE delete(int key,NODE first)
+NODE delete(int pos,NODE first)
 {
     if(first==NULL){
         printf("Empty list \n");
@@ -56,36 +56,33 @@ NODE delete(int key,NODE first)
     }
     NODE temp;
     NODE cur;
-    if(first->info==key){
+    if(pos==1){
         printf("Element deleted is %d \n",first->info);
         temp=first;
         first=first->link;
         free(temp);
         return first;
     }
-    
-    int flag=0;
+    int count=1;
     cur=first;
-    NODE prev;
-    while (cur->link!=NULL)
+    NODE prev=NULL;
+    while (cur!=NULL)
     {   prev=cur;
         cur=cur->link;
-        if(cur->info==key){
-            flag=1;
+        if(cur!=NULL)
+            count++;
+        if(count==pos){
             break;
         }
     }
-
-    if(flag==0){
-        printf("Element not found \n");
+    if(pos>count){
+        printf("Cannot enter in this position \n");
         return first;
     }
-    else{
-        printf("Element deleted is %d \n",cur->info);
-        prev->link=cur->link;
-        free(cur);
-        return(first);
-    }
+    printf("Element deleted is %d \n",cur->info);
+    prev->link=cur->link;
+    free(cur);
+    return first;
 }
 
 NODE display(NODE first){
@@ -104,7 +101,7 @@ NODE display(NODE first){
 }
 
 void main(){
-    int item,ch,key,pos;
+    int item,ch,pos;
     NODE first=NULL;
     printf("1.Insert at pos 2.delete  3.display 4.exit \n");
     while(1){
@@ -122,9 +119,9 @@ void main(){
             break;
 
         case 2:
-            printf("Enter element to delete \n");
-            scanf("%d",&key);
-            first=delete(key,first);
+            printf("Enter element pos to delete \n");
+            scanf("%d",&pos);
+            first=delete(pos,first);
             break;
 
         case 3:
