@@ -15,48 +15,37 @@ struct node{
 typedef struct node *NODE;
 
 NODE insert(int item,int pos,NODE first){
-    NODE temp;
+    NODE temp,cur;
     MALLOC(temp,1,struct node);
     temp->info=item;
     temp->link=NULL;
-    if(first==NULL && pos==1){
-        first=temp;
-        return first;
-    }
-    else if(first!=NULL && pos==1){
+    if(pos==1){
         temp->link=first;
         return temp;
     }
-    else if(first==NULL){
+    if(first==NULL){
         printf("Cannot insert at this position since Empty list\n");
         return first;
     }
-    else{
-        NODE cur;
-        NODE prev=NULL;
-        cur=first;
-        int count=1;
-        while (cur->link!=NULL)
-        {
-            prev=cur;
-            cur=cur->link;
-            count++;
-            if(count==pos){
-                break;
-            }
+    NODE prev=NULL;
+    cur=first;
+    int count=1;
+    while (cur!=NULL)
+    {
+        prev=cur;
+        cur=cur->link;
+        count++;
+        if(count==pos){
+            break;
         }
-        if(pos==count+1){
-            cur->link=temp;
-            return first;
-        }
-        else if(pos>count+1){
-            printf("Cannot insert at this position \n");
-            return first;
-        }
-        temp->link=cur;
-        prev->link=temp;
-        return first;        
     }
+    if(pos>count){
+        printf("Cannot insert at this position \n");
+        return first;
+    }
+    temp->link=cur;
+    prev->link=temp;
+    return first;        
 }
 
 NODE delete(int key,NODE first)
