@@ -22,7 +22,7 @@ NODE insert_rear(NODE head,int item){
         cur=cur->link;
     cur->link=temp;
     return head;
-}
+} 
 
 void display(NODE head){
     NODE cur;

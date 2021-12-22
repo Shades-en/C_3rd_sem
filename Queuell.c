@@ -15,9 +15,8 @@ struct node{
 typedef struct node *NODE;
 
 NODE enq(int item,NODE first){
-    NODE temp;
+    NODE temp,cur;
     MALLOC(temp,1,struct node);
-    NODE cur;
     temp->info=item;
     temp->link=NULL;
     if(first==NULL){

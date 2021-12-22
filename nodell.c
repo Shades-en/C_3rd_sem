@@ -71,9 +71,8 @@ NODE delete(int pos,NODE first)
         cur=cur->link;
         if(cur!=NULL)
             count++;
-        if(count==pos){
+        if(count==pos)
             break;
-        }
     }
     if(pos>count){
         printf("Cannot enter in this position \n");

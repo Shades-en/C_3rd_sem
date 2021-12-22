@@ -60,6 +60,7 @@ NODE delete(NODE first,int pos){
     if(pos==1){
         temp=first;
         first=first->rlink;
+        first->llink=NULL;
         printf("Element deleted is %d\n",temp->info);
         free(temp);
         return first;
