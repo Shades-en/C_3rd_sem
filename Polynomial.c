@@ -29,7 +29,7 @@ NODE insert(NODE head,float co_eff,int expo){
         return temp;
     }
 
-/*----- code snippet only to eliminate multiple similar exponent terms -----*/ 
+/*----- code snippet only to eliminate multiple similar exponent terms entered by the user -----*/ 
     cur=head;
     int flag=0;
     while (cur!=NULL){
@@ -77,9 +77,7 @@ NODE add(NODE head1, NODE head2){
     NODE cur2=head2;
     int sum=0;
     while(cur2!=NULL || cur1!=NULL){
-        printf("Entered \n");
         if(cur1==NULL || cur2==NULL || cur2->exp!=cur1->exp){
-            printf("unequal\n");
             if(cur2==NULL || cur1->exp>cur2->exp){
                 head=insert(head, cur1->coeff, cur1->exp);
                 cur1=cur1->link;
@@ -90,7 +88,6 @@ NODE add(NODE head1, NODE head2){
             }
         }
         else{
-            printf("equal\n");
             sum=cur1->coeff+cur2->coeff;
             head=insert(head,sum,cur1->exp);
             cur2=cur2->link;
