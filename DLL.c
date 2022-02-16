@@ -23,6 +23,8 @@ NODE insert(NODE first,int item,int pos){
     temp->rlink=NULL;
     if(pos==1){
         temp->rlink=first;
+        if(first!=NULL)
+            first->llink=temp;
         return temp;
     }
     if(first==NULL && pos>1){
@@ -91,10 +93,10 @@ NODE delete(NODE first,int pos){
     return first;
 }
 
-NODE display(NODE first){
+void display(NODE first){
     if(first==NULL){
         printf("Empty list\n");
-        return first;
+        return;
     }
     NODE cur;
     cur=first;
@@ -103,7 +105,6 @@ NODE display(NODE first){
         cur=cur->rlink;
     }
     printf("\n");
-    return first;
 }
 
 void main(){
